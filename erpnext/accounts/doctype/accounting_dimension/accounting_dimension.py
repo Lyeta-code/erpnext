@@ -11,6 +11,7 @@ from frappe.database.schema import validate_column_name
 from frappe.model import core_doctypes_list
 from frappe.model.document import Document
 from frappe.utils import cstr
+from frappe.utils.caching import request_cache
 
 from erpnext.accounts.doctype.repost_accounting_ledger.repost_accounting_ledger import (
 	get_allowed_types_from_settings,
@@ -288,6 +289,7 @@ def get_dimension_with_children(doctype, dimensions):
 
 
 @frappe.whitelist()
+@request_cache
 def get_dimensions(with_cost_center_and_project=False):
 	c = frappe.qb.DocType("Accounting Dimension Detail")
 	p = frappe.qb.DocType("Accounting Dimension")
